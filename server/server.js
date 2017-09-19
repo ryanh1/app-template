@@ -32,6 +32,12 @@ app.get('/about', (req, res) => {
   });
 });
 
+app.get('/signup', (req, res) => {
+  res.render('signup.hbs', {
+    pageTitle: 'Signup Page',
+  });
+});
+
 // Socket.io
 io.on('connection', function(socket){
   console.log('New user connected');
