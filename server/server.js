@@ -1,4 +1,6 @@
 // Require modules
+require('./config/config');
+
 const path = require('path');
 const express = require('express');
 const hbs = require('hbs');
@@ -6,10 +8,18 @@ const http = require('http');
 const socketIO = require('socket.io');
 const mocha = require('mocha');
 const expect = require('expect');
+const {ObjectID} = require('mongodb');
+
+var user_routes = require('./routes/user_routes');
+var {mongoose} = require('./db/mongoose');
+var {authenticate} = require('./middleware/authenticate');
+
+
 
 // Set app constants
 const publicPath = path.join(__dirname, '../public');
-const port = process.env.PORT || 3000;
+const port = process.env.PORT;
+
 
 // Set up express app, server, hbs, and socket.io
 var app = express();
@@ -18,8 +28,10 @@ hbs.registerPartials(__dirname + '/../views/partials');
 var server = http.createServer(app);
 var io = socketIO(server);
 
-// Server index page
+// Serve index page
 app.use(express.static(publicPath));
+app.use('/', user_routes);
+
 
 // Register hbs helpers
 hbs.registerHelper('getCurrentYear', () => {
