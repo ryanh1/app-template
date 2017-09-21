@@ -8,7 +8,7 @@
 
     <!--Signup form here-->
     <h3>Sign up</h3>
-    <form id="enter-note">
+    <form id="signup-form">
       <ul>
         <li>
           <label>Name:</label>
@@ -23,11 +23,16 @@
           <textarea id="password"></textarea>
         </li>
         <li>
-          <button id="submit-signup">Submit</button>
+          <button>Submit</button>
         </li>
       </ul>
     </form>
 
     {{> footer}}
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/libs/jquery-3.2.1.min.js"></script>
+    <script src="/js/signup.js"></script>
+
   </body>
 </html>

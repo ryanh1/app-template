@@ -17,7 +17,7 @@ var {authenticate} = require('./middleware/authenticate');
 
 
 // Set app constants
-const publicPath = path.join(__dirname, '../public');
+const publicPath = path.join(__dirname, '../views');
 const port = process.env.PORT;
 
 
