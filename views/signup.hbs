@@ -6,6 +6,7 @@
   </head>
   <body>
 
+<<<<<<< HEAD
     {{> header}}
 
 
@@ -34,6 +35,35 @@
 
     {{> footer}}
     {{> dependencies}}
+=======
+    <!--Signup form here-->
+    <h3>Sign up</h3>
+    <form id="signup-form">
+      <ul>
+        <li>
+          <label>Name:</label>
+          <textarea id="name"></textarea>
+        </li>
+        <li>
+          <label>Email:</label>
+          <textarea id="email"></textarea>
+        </li>
+        <li>
+          <label>Password:</label>
+          <textarea id="password"></textarea>
+        </li>
+        <li>
+          <button>Submit</button>
+        </li>
+      </ul>
+    </form>
+
+    {{> footer}}
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/libs/jquery-3.2.1.min.js"></script>
+    <script src="/js/signup.js"></script>
+>>>>>>> 6add527fdd3c7186be11c3cc3e045d42063cf2ad
 
   </body>
 </html>

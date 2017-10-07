@@ -13,7 +13,10 @@
     "bcrypt": "^1.0.3",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.1",
+<<<<<<< HEAD
     "bootstrap": "^3.3.7",
+=======
+>>>>>>> 6add527fdd3c7186be11c3cc3e045d42063cf2ad
     "express": "^4.15.4",
     "fs": "0.0.1-security",
     "hbs": "^4.0.1",

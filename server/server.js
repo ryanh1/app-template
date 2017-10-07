@@ -25,7 +25,10 @@ const port = process.env.PORT;
 var app = express();
 app.set('view engine', 'hbs');
 hbs.registerPartials(__dirname + '/../views/partials');
+<<<<<<< HEAD
 
+=======
+>>>>>>> 6add527fdd3c7186be11c3cc3e045d42063cf2ad
 var server = http.createServer(app);
 var io = socketIO(server);
 
@@ -33,17 +36,24 @@ var io = socketIO(server);
 app.use(express.static(publicPath));
 app.use('/', user_routes);
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 6add527fdd3c7186be11c3cc3e045d42063cf2ad
 // Register hbs helpers
 hbs.registerHelper('getCurrentYear', () => {
   return new Date().getFullYear()
 });
 
+<<<<<<< HEAD
 app.get('/', (req, res) => {
   res.render('index.hbs', {
     pageTitle: 'Home Page',
   });
 });
 
+=======
+>>>>>>> 6add527fdd3c7186be11c3cc3e045d42063cf2ad
 app.get('/about', (req, res) => {
   res.render('about.hbs', {
     pageTitle: 'About Page',
