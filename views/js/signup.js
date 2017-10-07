@@ -13,13 +13,11 @@ socket.on('disconnect', function () {
 jQuery('#signup-form').on('submit', function (e) {
   e.preventDefault();
 
-  var name = jQuery('#name');
-  var email = jQuery('#email');
-  // var password = jQuery('#password');
+  var email = jQuery('#email').val();
+  var password = jQuery('#password').val();
   var user = {
-    name,
     email,
-    // password
+    password
   }
   console.log(JSON.stringify(user));
 });

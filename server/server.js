@@ -8,13 +8,12 @@ const http = require('http');
 const socketIO = require('socket.io');
 const mocha = require('mocha');
 const expect = require('expect');
+const passport = require('passport');
 const {ObjectID} = require('mongodb');
 
 var user_routes = require('./routes/user_routes');
 var {mongoose} = require('./db/mongoose');
 var {authenticate} = require('./middleware/authenticate');
-
-
 
 // Set app constants
 const publicPath = path.join(__dirname, '../views');
@@ -25,10 +24,6 @@ const port = process.env.PORT;
 var app = express();
 app.set('view engine', 'hbs');
 hbs.registerPartials(__dirname + '/../views/partials');
-<<<<<<< HEAD
-
-=======
->>>>>>> 6add527fdd3c7186be11c3cc3e045d42063cf2ad
 var server = http.createServer(app);
 var io = socketIO(server);
 
@@ -36,24 +31,18 @@ var io = socketIO(server);
 app.use(express.static(publicPath));
 app.use('/', user_routes);
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 6add527fdd3c7186be11c3cc3e045d42063cf2ad
 // Register hbs helpers
 hbs.registerHelper('getCurrentYear', () => {
   return new Date().getFullYear()
 });
 
-<<<<<<< HEAD
 app.get('/', (req, res) => {
   res.render('index.hbs', {
     pageTitle: 'Home Page',
   });
 });
 
-=======
->>>>>>> 6add527fdd3c7186be11c3cc3e045d42063cf2ad
 app.get('/about', (req, res) => {
   res.render('about.hbs', {
     pageTitle: 'About Page',
@@ -65,6 +54,7 @@ app.get('/signup', (req, res) => {
     pageTitle: 'Signup Page',
   });
 });
+
 
 // Socket.io
 io.on('connection', function(socket){
