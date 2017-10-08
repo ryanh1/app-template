@@ -55,6 +55,12 @@ app.get('/signup', (req, res) => {
   });
 });
 
+app.get('/map', (req, res) => {
+  res.render('map.hbs', {
+    pageTitle: 'Map Page',
+  });
+});
+
 
 // Socket.io
 io.on('connection', function(socket){
