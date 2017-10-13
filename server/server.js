@@ -1,64 +1,121 @@
 // Require modules
 require('./config/config');
 
-const path = require('path');
-const express = require('express');
-const hbs = require('hbs');
-const http = require('http');
-const socketIO = require('socket.io');
-const mocha = require('mocha');
-const expect = require('expect');
-const passport = require('passport');
-const {ObjectID} = require('mongodb');
+const path              = require('path');
+const express           = require('express');
+const hbs               = require('hbs');
+const http              = require('http');
+const socketIO          = require('socket.io');
+const mocha             = require('mocha');
+const expect            = require('expect');
+const bodyParser        = require("body-parser");
+const cookieParser      = require("cookie-parser");
+const lodash            = require("lodash");
+const {ObjectID}        = require('mongodb');
+const fs                = require('fs');
+const passport          = require('passport');
+const expressValidator  = require('express-validator');
+const flash             = require('connect-flash');
+const session           = require('express-session');
 
-var user_routes = require('./routes/user_routes');
-var {mongoose} = require('./db/mongoose');
-var {authenticate} = require('./middleware/authenticate');
 
-// Set app constants
-const publicPath = path.join(__dirname, '../views');
+// Require self created files
+var {mongoose}          = require('./db/mongoose');
+var {User}              = require('./models/user');
+var routes              = require('./routes/routes');
+// var users = require('./routes/users');
+
+
+// Define server port
 const port = process.env.PORT;
 
 
-// Set up express app, server, hbs, and socket.io
+
+
+// Init Express App
 var app = express();
+
+// Prepare view engine and path directories
+const publicPath = path.join(__dirname, '../views');
 app.set('view engine', 'hbs');
 hbs.registerPartials(__dirname + '/../views/partials');
+
+
+// Set up server and socket
 var server = http.createServer(app);
 var io = socketIO(server);
 
-// Serve index page
+
+// Configure express app
 app.use(express.static(publicPath));
-app.use('/', user_routes);
+app.use(bodyParser.urlencoded({ extended: false }));
+
+
+// BodyParser Middleware
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
+
+
+// Express Session
+app.use(session({
+    secret: 'secret',
+    // Force new session to be saved to store
+    saveUninitialized: true,
+    // Forces session to be re-saved back to store even if not modified.
+    // Optimal value depends on store.
+    resave: true
+}));
+
+
+// Passport init
+app.use(passport.initialize());
+app.use(passport.session());
+
+
+// Express Validator
+app.use(expressValidator({
+  errorFormatter: function(param, msg, value) {
+      var namespace = param.split('.')
+      , root    = namespace.shift()
+      , formParam = root;
+
+    while(namespace.length) {
+      formParam += '[' + namespace.shift() + ']';
+    }
+    return {
+      param : formParam,
+      msg   : msg,
+      value : value
+    };
+  }
+}));
+
+
+// Connect Flash
+app.use(flash());
+
+
+// Global Vars for Flash
+app.use(function (req, res, next) {
+  res.locals.success_msg = req.flash('success_msg');
+  res.locals.error_msg = req.flash('error_msg');
+  res.locals.error = req.flash('error');
+  res.locals.user = req.user || null;
+  next();
+});
+
+
+
+// Prefixes
+app.use('/', routes);
+// app.use('/users', users);
+
 
 
 // Register hbs helpers
 hbs.registerHelper('getCurrentYear', () => {
   return new Date().getFullYear()
-});
-
-app.get('/', (req, res) => {
-  res.render('index.hbs', {
-    pageTitle: 'Home Page',
-  });
-});
-
-app.get('/about', (req, res) => {
-  res.render('about.hbs', {
-    pageTitle: 'About Page',
-  });
-});
-
-app.get('/signup', (req, res) => {
-  res.render('signup.hbs', {
-    pageTitle: 'Signup Page',
-  });
-});
-
-app.get('/map', (req, res) => {
-  res.render('map.hbs', {
-    pageTitle: 'Map Page',
-  });
 });
 
 

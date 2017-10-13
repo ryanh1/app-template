@@ -3,7 +3,7 @@ console.log('env *****', env);
 
 if (env === 'development') {
   process.env.PORT = 3000;
-  process.env.MONGODB_URI = 'mongodb://localhost:27017/AppTemplate';
+  process.env.MONGODB_URI = 'mongodb://localhost/app-template';
 // } else if (env === 'test') {
 //   process.env.PORT = 3000;
 //   process.env.MONGODB_URI = 'mongodb://localhost:27017/AppTemplateTest';

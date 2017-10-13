@@ -1,17 +1,38 @@
-var {User} = require('./../models/user');
+var express = require('express');
+var router = express.Router();
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
 
-var authenticate = (req, res, next) => {
-  var token = req.header('x-auth');
-  User.findByToken(token).then((user) => {
-    if (!user) {
-      return Promise.reject();
-    }
-    req.user = user;
-    req.token = token;
-    next()
-  }).catch((e) => {
-    res.status(401).send();
-  });
-};
 
-module.exports = {authenticate};
+
+// // Passport authentication middlewear
+// passport.use(new LocalStrategy(
+//   function(username, password, done) {
+//    User.getUserByUsername(username, function(err, user){
+//    	if(err) throw err;
+//    	if(!user){
+//    		return done(null, false, {message: 'Unknown User'});
+//    	}
+//
+//    	User.comparePassword(password, user.password, function(err, isMatch){
+//    		if(err) throw err;
+//    		if(isMatch){
+//    			return done(null, user);
+//    		} else {
+//    			return done(null, false, {message: 'Invalid password'});
+//    		}
+//    	});
+//    });
+//   }));
+//
+// passport.serializeUser(function(user, done) {
+//   done(null, user.id);
+// });
+//
+// passport.deserializeUser(function(id, done) {
+//   User.getUserById(id, function(err, user) {
+//     done(err, user);
+//   });
+// });
+
+module.exports = {passport};

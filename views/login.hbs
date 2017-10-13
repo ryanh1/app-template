@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+</head>
+
+<body>
+
+  {{> header}}
+
+  <!-- Flash messages -->
+  {{#if errors}}
+        {{#each errors}}
+          <div class="alert alert-danger">{{msg}}</div>
+        {{/each}}
+  {{/if}}
+
+  {{> flash}}
+
+  <div class="container w-50 mt-5">
+    <h3 class="page-header">{{pageTitle}}</h3>
+      <form id="login-form" method="post" action="/login">
+        <div>
+          <label>Email:</label>
+          <input type="email" class="form-control" name="username" placeholder="Email" id="email"/>
+        </div>
+        <div>
+          <label>Password:</label>
+          <input type="password" class="form-control" name="password" placeholder="Password" id="password"/>
+        </div>
+        <div>
+          <input type="submit" value="Log In"/>
+        </div>
+      </form>
+      <div class="mb-5"></div>
+      {{> footer}}
+    </div>
+
+  {{> dependencies}}
+  <script src="/js/libs/jquery-3.2.1.min.js"></script>
+  <script src="/js/login.js"></script>
+
+
+
+
+
+
+</body>
+</html>
