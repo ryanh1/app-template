@@ -60,11 +60,25 @@ router.post('/login',
 
 
 // Profile page
-router.get('/profile', ensureAuthenticated, (req, res) => {
-  res.render('profile.hbs', {
-    pageTitle: 'Profile page'
-    // name: user.name,
-    // email: user.email
+router.get('/profile', ensureAuthenticated, (req, res, done) => {
+  var userID = req.session.passport.user;
+
+  User.getUserById(userID, function(err, user) {
+    if(err){
+      throw err
+    };
+    if(!user){
+   		return done(null, false, {message: 'Unknown User'});
+   	}
+    if(user) {
+      var name = user.name;
+      var email = user.email;
+      res.render('profile.hbs', {
+        pageTitle: 'Profile page',
+        name: name,
+        email: email
+      });
+    }
   });
 });
 
