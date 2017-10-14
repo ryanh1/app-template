@@ -33,7 +33,7 @@ passport.use(new LocalStrategy({
 passport.use('local-signup', new LocalStrategy({
     usernameField: 'email',
     passReqToCallback: true
-  },  function(req, username, password, done) {
+  },  function(req, username, done) {
 
           // Sign up user
         	var name = req.body.name;
@@ -45,19 +45,20 @@ passport.use('local-signup', new LocalStrategy({
           // This checks each element of the request body
           // Then it posts errors in req.validationErrors
 
-        	req.checkBody('name', 'Name is required').notEmpty();
-        	req.checkBody('email', 'Email is required').notEmpty();
+        	req.checkBody('name', 'Name is required').isLength({ min: 1});
+          req.checkBody('name', 'Name is invalid').check);
+        	req.checkBody('email', 'Email is required').isLength({ min: 1});
         	req.checkBody('email', 'Email is not valid').isEmail();
         	req.checkBody('password', 'Password is required').notEmpty();
-          req.checkBody('password', 'Password is required').isLength({ min: 6 });
+          req.checkBody('password', 'Password must contain at least 6 characters').isLength({ min: 6 });
         	req.checkBody('password2', 'Passwords do not match').equals(req.body.password);
 
           var errors = req.validationErrors();
 
           // If there are errors, render the signup page and pass those errors in
         	if(errors){
-          		res.render('signup',{
-          			errors:errors
+          		req.res.render('signup',{
+          		 	errors:errors
           		});
         	} else {
               // Else, create a new user
