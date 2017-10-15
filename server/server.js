@@ -17,6 +17,7 @@ const passport          = require('passport');
 const expressValidator  = require('express-validator');
 const flash             = require('connect-flash');
 const session           = require('express-session');
+const scraperjs         = require('scraperjs');
 
 
 // Require self created files
@@ -119,12 +120,32 @@ hbs.registerHelper('getCurrentYear', () => {
 });
 
 
+
 // Socket.io
 io.on('connection', function(socket){
   console.log('New user connected');
   socket.on('disconnect', function(){
     console.log('User disconnected');
   });
+
+  // News scraper
+  socket.on('requestHeadlines', function() {
+    console.log('Headlines requested from client');
+    scraperjs.StaticScraper.create('https://news.google.com/news/headlines?ned=us&hl=en')
+      .scrape(function($) {
+          return $('a[role="heading"]').map(function() {
+              return $(this).text();
+          }).get();
+      })
+      .then(function(news) {
+          // Socket.io
+            socket.emit('deliverHeadlines', {headlines: news});
+              console.log('Headlines delivered to client');
+      });
+  });
+
+
+
 });
 
 // Set up server listening

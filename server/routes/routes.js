@@ -15,6 +15,7 @@ router.get('/', (req, res) => {
   });
 });
 
+
 // About page
 router.get('/about', (req, res) => {
   res.render('about.hbs', {
@@ -22,6 +23,15 @@ router.get('/about', (req, res) => {
   });
 });
 
+
+// News page
+router.get('/news', (req, res) => {
+  res.render('news.hbs', {
+    pageTitle: 'News Page',
+  });
+});
+
+// Map page
 router.get('/map', (req, res) => {
   res.render('map.hbs', {
     pageTitle: 'Map Page',

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>{{pageTitle}}</title>
+</head>
+
+<body>
+
+  {{> header}}
+
+  <div class="container w-75 mt-5">
+    <h3>Today's top headlines</h3>
+    <p class="text-secondary" id="date"></p>
+  </div>
+
+
+  <table class="table table-bordered container w-75 mt-2" id="headlines">
+      <thead>
+          <tr>
+              <th>#</th>
+              <th>Headline</th>
+          </tr>
+      </thead>
+      <tbody class="headlines">
+        <!--Headlines inserted here-->
+      </tbody>
+  </table>
+
+
+  {{> footer}}
+  {{> dependencies}}
+  <script src="/js/libs/moment.js"></script>
+  <script src="/js/libs/jquery-3.2.1.min.js"></script>
+  <script src="/js/news.js"></script>
+
+
+
+
+
+</body>
+</html>
