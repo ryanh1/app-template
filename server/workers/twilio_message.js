@@ -1,3 +1,15 @@
+
+// I DISABLED (RELEASED) MY TWILIO PHONE NUMBER UNTIL I NEED TO USE IT ON ANOTHER PROJECT
+// TO RE-ENABLE IT, LOG IN TO TWILIO CONSOLE
+
+
+
+
+
+
+
+
+
 var secret = require('../config/secret');
 var accountSid = secret.accountSid; // Your Account SID from www.twilio.com/console
 var authToken = secret.authToken;
