@@ -4,6 +4,12 @@
     border-bottom-color: grey;
 }
 
+.upper_border {
+    border-top-style: solid;
+    border-top-width: 1px;
+    border-top-color: grey;
+}
+
 .page-padding {
   padding-right:30px;
   padding-left:30px;
