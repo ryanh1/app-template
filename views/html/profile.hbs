@@ -9,13 +9,15 @@
 
   {{> header}}
 
-  <h3>Profile page</h3>
+  <h3 class="text-center">Profile page</h3>
   <p></p>
 
-  {{> flash}}
+  <div class="page-padding">
+    {{> flash}}
 
-  <p>Your name: {{name}}</p>
-  <p>Your email: {{email}}</p>
+    <p>Your name: {{name}}</p>
+    <p>Your email: {{email}}</p>
+  </div>
 
   {{> footer}}
   {{> dependencies}}

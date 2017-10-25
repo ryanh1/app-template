@@ -1,0 +1,15 @@
+.lower_border {
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: grey;
+}
+
+.page-padding {
+  padding-right:30px;
+  padding-left:30px;
+}
+
+/*.content-center {
+  display: block;
+  margin: 0 auto
+}*/
