@@ -36,11 +36,15 @@ const port = process.env.PORT;
 // Init Express App
 var app = express();
 
-// Prepare view engine and path directories
-const publicPath = path.join(__dirname, '../views');
+// Prepare view engine
 app.set('view engine', 'hbs');
-hbs.registerPartials(__dirname + '/../views/partials');
 
+// Configure root directory of files served to client
+const publicPath = path.join(__dirname, '../views/');
+app.use(express.static(publicPath));
+
+// Configure partials directory
+hbs.registerPartials(__dirname + '/../views/partials');
 
 // Set up server and socket
 var server = http.createServer(app);
@@ -48,8 +52,8 @@ var io = socketIO(server);
 
 
 // Configure express app
-app.use(express.static(publicPath));
 app.use(bodyParser.urlencoded({ extended: false }));
+
 
 
 // BodyParser Middleware
