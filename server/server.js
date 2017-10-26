@@ -24,6 +24,7 @@ const scraperjs         = require('scraperjs');
 var {mongoose}          = require('./db/mongoose');
 var {User}              = require('./models/user');
 var routes              = require('./routes/routes');
+var secret              = require('./config/secret');
 // var users = require('./routes/users');
 
 
@@ -64,7 +65,7 @@ app.use(cookieParser());
 
 // Express Session
 app.use(session({
-    secret: 'secret',
+    secret: secret.authSecret,
     // Force new session to be saved to store
     saveUninitialized: true,
     // Forces session to be re-saved back to store even if not modified.
