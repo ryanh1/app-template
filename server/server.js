@@ -133,7 +133,7 @@ io.on('connection', function(socket){
     console.log('User disconnected');
   });
 
-  // News scraper
+  // Static news scraper
   socket.on('requestHeadlines', function() {
     console.log('Headlines requested from client');
     scraperjs.StaticScraper.create('https://news.google.com/news/headlines?ned=us&hl=en')
@@ -148,9 +148,6 @@ io.on('connection', function(socket){
               console.log('Headlines delivered to client');
       });
   });
-
-
-
 });
 
 // Set up server listening

@@ -7,12 +7,17 @@
 .upper_border {
     border-top-style: solid;
     border-top-width: 1px;
-    border-top-color: grey;
+    border-top-color: LightGrey;
 }
 
 .page-padding {
   padding-right:30px;
   padding-left:30px;
+}
+
+
+.bg-white {
+    background-color: #00ff00;
 }
 
 /*.content-center {
