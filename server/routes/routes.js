@@ -2,9 +2,11 @@ var express               = require('express');
 var router                = express.Router();
 var passport              = require('passport');
 var LocalStrategy         = require('passport-local').Strategy;
+var moment                = require('moment');
 
 // Require self-made files
 var User                  = require('../models/user');
+var Tweet                 = require('../models/tweet');
 var secret                = require('../config/secret');
 
 require('../middleware/authenticate');
@@ -114,6 +116,7 @@ router.get('/sms', (req, res) => {
   });
 });
 
+
 // POST log in
 router.post('/sms',
   function(req, res) {
@@ -122,6 +125,47 @@ router.post('/sms',
   }
 );
 
+
+// Get SMS page
+router.get('/twitter', (req, res) => {
+  res.render('html/twitter.hbs', {
+    pageTitle: 'Twitter',
+  });
+});
+
+// POST tweet
+router.post('/twitter',
+  function(req, res) {
+
+    // Validation
+    var message = req.body.message;
+    req.checkBody('message', 'Message is required').isLength({ min: 1});
+    var errors = req.validationErrors();
+
+    // If there are errors, render the twitter page and pass those errors in
+    if(errors){
+        req.res.render('twitter',{
+          errors:errors
+        });
+    } else {
+
+      // Else, create a new tweet
+      var time = moment();
+      
+      var newTweet = new Tweet({
+        message: message,
+        time: time
+      });
+
+      // Save the user to the database
+      Tweet.createTweet(newTweet, function(err, tweet){
+        if(err) throw err;
+        console.log("Saved tweet to database: ", tweet.message);
+        res.redirect('twitter');
+      });
+    }
+  }
+);
 
 
 

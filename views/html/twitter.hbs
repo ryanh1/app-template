@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>{{pageTitle}}</title>
+</head>
+
+<body>
+
+  {{> header}}
+
+  <!-- h3 class="text-center">Twitter</h3 -->
+  <p></p>
+
+  <div class="page-padding">
+
+  {{> flash}}
+
+  <div class="container w-75">
+      <form id="tweet-form" method="post" action="/twitter">
+        <div>
+          <label>Tweet:</label>
+          <input type="text" class="form-control" name="message" placeholder="Your tweet" id="message"/>
+        </div>
+        <div>
+          <input class="mt-3" type="submit" value="Post"/>
+        </div>
+      </form>
+      <div class="mb-5"></div>
+  </div>
+
+  <div class="container w-75 mt-5">
+    <h3 class="text-center">Tweets</h3>
+    <p class="text-secondary text-center" id="date"></p>
+  </div>
+
+
+  <table class="table table-bordered container w-75 mt-2" id="tweets">
+      <thead>
+          <tr>
+              <th>Author</th>
+              <th>Time</th>
+              <th>Tweet</th>
+          </tr>
+      </thead>
+      <tbody class="tweets">
+        <!--Headlines inserted here-->
+      </tbody>
+  </table>
+
+
+  {{> footer}}
+  {{> dependencies}}
+  <script src="/js/libs/moment.js"></script>
+  <script src="/js/libs/jquery-3.2.1.min.js"></script>
+  <script src="/js/twitter.js"></script>
+
+
+</body>
+</html>

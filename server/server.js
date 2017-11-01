@@ -23,6 +23,7 @@ const scraperjs         = require('scraperjs');
 // Require self created files
 var {mongoose}          = require('./db/mongoose');
 var {User}              = require('./models/user');
+var Tweet               = require('./models/tweet');
 var routes              = require('./routes/routes');
 var secret              = require('./config/secret');
 // var users = require('./routes/users');
@@ -148,6 +149,17 @@ io.on('connection', function(socket){
               console.log('Headlines delivered to client');
       });
   });
+
+  // Tweets
+  socket.on('requestTweets', function() {
+    console.log('Tweets requested from client');
+    Tweet.getAllTweets(function(err, tweets){
+    	if(err) throw err;
+      socket.emit('deliverTweets', {tweets: tweets});
+        console.log('Tweets delivered to client: ', JSON.stringify(tweets));
+    });
+  })
+
 });
 
 // Set up server listening
