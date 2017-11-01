@@ -37,11 +37,12 @@ socket.on('deliverTweets', function(data) {
 
     // Define author element
     var author = document.createElement('td');
+      author.innerHTML = data.tweets[i].email;
       var email = data.tweets[i].email;
       if (email) {
         author.innerHTML = email;
       } else {
-        author.innerHTML = 'Unknown';
+        author.innerHTML = "Unknown author";
       }
 
     // Define time element

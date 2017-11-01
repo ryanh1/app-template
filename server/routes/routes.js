@@ -151,8 +151,15 @@ router.post('/twitter',
 
       // Else, create a new tweet
       var time = moment();
-      
+      var email;
+      if(req.isAuthenticated()){
+        email = "Authenticated author";
+      } else {
+        email = "Unknown";
+      }
+
       var newTweet = new Tweet({
+        email: email,
         message: message,
         time: time
       });
