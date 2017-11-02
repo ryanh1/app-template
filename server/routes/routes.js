@@ -137,8 +137,13 @@ router.get('/twitter', (req, res) => {
 router.post('/twitter',
   function(req, res) {
 
-    // Validation
-    var message = req.body.message;
+    // Set tweet structure
+    var author;
+    var time;
+    var message;
+
+    // Validate message
+    message = req.body.message;
     req.checkBody('message', 'Message is required').isLength({ min: 1});
     var errors = req.validationErrors();
 
@@ -149,32 +154,44 @@ router.post('/twitter',
         });
     } else {
 
-      // Else, create a new tweet
-      var time = moment();
-      var email;
-      if(req.isAuthenticated()){
-        email = "Authenticated author";
+      // Else, create a new tweet, starting with time
+      time = moment();
+
+      // If the user is not logged in, set author to "Anonymous"
+      if(!req.isAuthenticated()){
+        author = "Anonymous";
+        saveTweet(author, message, time, res);
       } else {
-        email = "Unknown";
+        // If the user is logged in, the user id can be retrieved with console.log(req.session.passport.user);
+        User.getUserById(req.session.passport.user, function(err, user){
+          if(err) throw err;
+          if(!user) {
+            return done(null, false, {message: 'The user cannot be found.'});
+          } else {
+            author = user.name;
+            saveTweet(author, message, time, res);
+          }
+        });
       }
-
-      var newTweet = new Tweet({
-        email: email,
-        message: message,
-        time: time
-      });
-
-      // Save the user to the database
-      Tweet.createTweet(newTweet, function(err, tweet){
-        if(err) throw err;
-        console.log("Saved tweet to database: ", tweet.message);
-        res.redirect('twitter');
-      });
     }
   }
 );
 
+function saveTweet(author, message, time, res) {
+  // Create newTweet variable
+  var newTweet = new Tweet({
+    author: author,
+    message: message,
+    time: time
+  });
 
+  // Save the user to the database
+  Tweet.createTweet(newTweet, function(err, tweet){
+    if(err) throw err;
+    console.log("Saved tweet to database: ", JSON.stringify(tweet));
+    res.redirect('twitter');
+  });
+}
 
 // Require user log in
 function ensureAuthenticated(req, res, next){

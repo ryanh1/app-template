@@ -5,7 +5,7 @@ var bcrypt = require('bcryptjs');
 // Tweet Schema
 var TweetSchema = mongoose.Schema({
   // Tweetname is going to the email
-  email: {
+  author: {
 		type: String,
     required: false,
     trim: true,
