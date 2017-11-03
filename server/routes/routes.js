@@ -177,6 +177,8 @@ router.post('/twitter',
   }
 );
 
+
+// saveTweet - used with Twitter page
 function saveTweet(author, message, time, res) {
   // Create newTweet variable
   var newTweet = new Tweet({
